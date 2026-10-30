@@ -5,15 +5,15 @@ import { categories, projectImage, projects, projectsIn } from "@/data/projects"
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Live AI, web, blockchain and Android projects.",
+  description: "Live AI, web, blockchain and Android products that showcase the technologies I work with.",
 };
 
 export default function ProjectsPage() {
   return (
     <div className="mx-auto max-w-6xl">
-      <PageHeader eyebrow="Projects" title="Selected work, live on the web">
-        {projects.length > 0 ? `${projects.length} live projects` : "Live projects"} across AI, web, blockchain
-        and Android. Every card links to the real site.
+      <PageHeader eyebrow="Projects" title="The stack I work with, live in production">
+        {projects.length > 0 ? `${projects.length} live products` : "Live products"} across AI, web, blockchain and
+        Android that showcase each technology I use. Every card links to the real site.
       </PageHeader>
 
       <nav aria-label="Project categories" className="mt-10 flex flex-wrap justify-center gap-3">

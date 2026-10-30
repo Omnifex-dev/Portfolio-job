@@ -24,7 +24,7 @@ export const contacts = {
 
 export const about = {
   intro: [
-    "I'm a senior software engineer who enjoys turning complex ideas into reliable, polished products. My work spans AI systems, full-stack web development, blockchain and native Android.",
+    "I'm a senior software engineer who enjoys turning complex ideas into reliable, polished products. My work spans AI systems, full-stack web development, blockchain and cross-platform mobile apps.",
     "On the AI side I build LLM-powered applications, retrieval-augmented generation (RAG) pipelines, conversational chatbots, machine-learning features and n8n automation workflows. On the web I work across React, Next.js, Vue, Angular, Node.js and Laravel.",
     "I care about clean architecture, performance and the small details that make software feel effortless to use.",
   ],
@@ -32,7 +32,7 @@ export const about = {
     { group: "AI & Automation", items: ["LLM applications", "RAG", "AI chatbots", "Machine Learning", "n8n", "Python"] },
     { group: "Web", items: ["React", "Next.js", "Vue", "Angular", "Node.js", "Laravel"] },
     { group: "Blockchain", items: ["Web3 applications", "Smart contract integration", "Wallet connectivity"] },
-    { group: "Mobile", items: ["Android"] },
+    { group: "Mobile", items: ["React Native", "Flutter"] },
   ],
   principles: [
     { title: "Product-minded", text: "I start from the user's problem and measure success by what ships and gets used." },
