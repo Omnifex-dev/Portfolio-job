@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const channels = [
   {
     label: "Telegram",
-    value: contacts.telegram.handle,
+    value: "",
     href: contacts.telegram.url,
     note: "Fastest way to reach me",
     Icon: Telegram,
@@ -19,7 +19,7 @@ const channels = [
   },
   {
     label: "Email",
-    value: contacts.email.address,
+    value: "",
     href: contacts.email.url,
     note: "For project details and proposals",
     Icon: Mail,
@@ -27,7 +27,7 @@ const channels = [
   },
   {
     label: "GitHub",
-    value: contacts.github.handle,
+    value: "",
     href: contacts.github.url,
     note: "Code, experiments and open source",
     Icon: GitHub,

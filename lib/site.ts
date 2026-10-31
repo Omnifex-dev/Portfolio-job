@@ -17,9 +17,9 @@ export const navLinks = [
 ] as const;
 
 export const contacts = {
-  telegram: { handle: "@avagru0617", url: "https://t.me/avagru0617" },
-  github: { handle: "bobis-oss", url: "https://github.com/bobis-oss/bobis-oss" },
-  email: { address: "pad2068@outlook.com", url: "mailto:pad2068@outlook.com" },
+  telegram: { url: "https://t.me/avagru0617" },
+  github: { url: "https://github.com/bobis-oss/bobis-oss" },
+  email: { url: "mailto:pad2068@outlook.com" },
 };
 
 export const about = {
