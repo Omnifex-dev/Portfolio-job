@@ -1,8 +1,8 @@
 // Personal details used across the site. Edit here, not in the pages.
 
 export const site = {
-  name: "Adrian",
-  role: "Senior Software Engineer",
+  name: "Carlo",
+  role: "Senior AI Software Engineer",
   tagline:
     "I design and ship AI-powered products, modern web applications, blockchain platforms and Android apps — from first prototype to production.",
   url: "https://example.com", // TODO: replace with your deployed domain
@@ -24,7 +24,7 @@ export const contacts = {
 
 export const about = {
   intro: [
-    "I'm a senior software engineer who enjoys turning complex ideas into reliable, polished products. My work spans AI systems, full-stack web development, blockchain and cross-platform mobile apps.",
+    "I'm a senior AI software engineer who enjoys turning complex ideas into reliable, polished products. My work spans AI systems, full-stack web development, blockchain and cross-platform mobile apps.",
     "On the AI side I build LLM-powered applications, retrieval-augmented generation (RAG) pipelines, conversational chatbots, machine-learning features and n8n automation workflows. On the web I work across React, Next.js, Vue, Angular, Node.js and Laravel.",
     "I care about clean architecture, performance and the small details that make software feel effortless to use.",
   ],

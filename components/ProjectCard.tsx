@@ -14,8 +14,8 @@ export default function ProjectCard({ project, image }: { project: Project; imag
   return (
     <article className="glass group flex flex-col overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1 hover:border-foam/40 hover:shadow-2xl hover:shadow-cyan-950/50">
       <a
-        href={project.url}
-        target="_blank"
+        // href={project.url}
+        // target="_blank"
         rel="noopener noreferrer"
         className="relative block aspect-[16/10] overflow-hidden bg-deep"
         aria-label={`Open ${project.title} homepage`}
@@ -50,20 +50,24 @@ export default function ProjectCard({ project, image }: { project: Project; imag
         {project.tech.length > 0 && (
           <ul className="mt-4 flex flex-wrap gap-1.5">
             {project.tech.map((t) => (
-              <li key={t} className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-foam">
+              <li key={t} className="rounded-full bg-white/10 px-4 py-0.5 text-xs text-foam">
                 {t}
               </li>
             ))}
           </ul>
         )}
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-2 self-start rounded-full bg-coral/90 px-4 py-2 text-sm font-semibold text-white transition hover:bg-coral"
-        >
-          Visit site <ExternalLink className="size-4" />
-        </a>
+        {
+          project.viewState && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 self-start rounded-full bg-coral/90 px-4 py-2 text-sm font-semibold text-white transition hover:bg-coral"
+            >
+              Visit site <ExternalLink className="size-4" />
+            </a>
+          )
+        }
         <p className="mt-2 truncate text-xs text-cyan-50/55">{project.url}</p>
       </div>
     </article>
