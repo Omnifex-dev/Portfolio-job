@@ -12,14 +12,13 @@ export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About me" },
   { href: "/projects", label: "Projects" },
-  { href: "/certifications", label: "Certifications" },
   { href: "/contact", label: "Contact me" },
 ] as const;
 
 export const contacts = {
   telegram: { url: "https://t.me/avagru0617" },
-  github: { url: "https://github.com/bobis-oss/bobis-oss" },
-  email: { url: "mailto:pad2068@outlook.com" },
+  github: { url: "https://github.com/bcExpt1123" },
+  email: { url: "tshingen821@gmail.com" },
 };
 
 export const about = {

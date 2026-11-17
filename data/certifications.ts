@@ -12,7 +12,6 @@ export type Certification = {
 };
 
 export const certifications: Certification[] = [
-  { title: "Frontend Developer", kind: "role", issuer: "HackerRank", id: "7d0aa99af967" },
   { title: "Software Engineer", kind: "role", issuer: "HackerRank", id: "4bb12a355bb8" },
   { title: "Python", kind: "skill", issuer: "HackerRank", id: "297dc1f55ec2" },
   { title: "Node.js", kind: "skill", issuer: "HackerRank", id: "c6ce237179b1" },

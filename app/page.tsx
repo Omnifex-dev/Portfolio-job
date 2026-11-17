@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { categoryIcons } from "@/components/categoryIcons";
-import { ArrowRight, Award } from "@/components/icons";
-import { certifications } from "@/data/certifications";
+import { ArrowRight } from "@/components/icons";
 import { categories, projectsIn } from "@/data/projects";
 import { site } from "@/lib/site";
 
@@ -82,22 +81,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Certifications teaser */}
-      <section className="glass mt-16 flex flex-col items-center gap-6 rounded-3xl p-8 text-center md:flex-row md:text-left">
-        <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#ffd166] to-coral text-white shadow-lg">
-          <Award className="size-8" />
-        </span>
-        <div className="flex-1">
-          <h2 className="font-display text-2xl font-bold text-white">HackerRank certified</h2>
-          <p className="mt-1 text-cyan-50/80">{certifications.map((c) => c.title).join(" · ")}</p>
-        </div>
-        <Link
-          href="/certifications"
-          className="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3 font-semibold text-white transition hover:bg-white/20"
-        >
-          View certificates <ArrowRight className="size-4" />
-        </Link>
-      </section>
     </div>
   );
 }

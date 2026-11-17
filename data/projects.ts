@@ -33,18 +33,6 @@ export const categories: {
     blurb: "Fast, accessible web applications, platforms and CMS-driven sites built with modern frameworks.",
     tech: ["React", "Vue", "Laravel", "CMS"],
   },
-  // {
-  //   id: "blockchain",
-  //   title: "Blockchain",
-  //   blurb: "Web3 platforms, dApps and smart-contract powered products on Ethereum and Polygon.",
-  //   tech: ["Solidity", "Ethereum", "Polygon"],
-  // },
-  // {
-  //   id: "android",
-  //   title: "Android",
-  //   blurb: "Cross-platform mobile apps built with React Native and Flutter, published for real users.",
-  //   tech: ["React Native", "Flutter"],
-  // },
 ];
 
 /*
