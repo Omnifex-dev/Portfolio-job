@@ -2,10 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-const CELL = 26; // grid pitch in px
-const GAP = 3; // space between squares
+const CELL = 20; // grid pitch in px (~3/4 of the original 26px grid)
+const GAP = 2; // space between squares
 const RADIUS = 90; // cells within this distance of the cursor light up
-const DECAY = 0.93; // per-frame fade of lit cells (lower = shorter trail)
+const DECAY = 0.85; // per-frame fade of lit cells (lower = shorter trail)
 const BASE_ALPHA = 0.035; // faint outline of every square
 const COLOR = "194, 164, 255"; // --accent
 
@@ -23,6 +23,11 @@ export default function Cursor() {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mouse = { x: 0, y: 0, inside: false, boost: 1 };
+    // Hovered element marked [data-cursor-above]; the effect is cut out around it
+    // so it appears to sit above the grid.
+    let above: Element | null = null;
+    // True while the pointer is over an element marked [data-cursor-off]: no new glow there.
+    let off = false;
     let cols = 0;
     let rows = 0;
     let glow = new Float32Array(0);
@@ -95,11 +100,23 @@ export default function Cursor() {
         ctx.strokeRect(x + 0.5, y + 0.5, size - 1, size - 1);
         glow[i] = reduceMotion ? 0 : v * DECAY;
       }
+
+      if (above) {
+        const r = above.getBoundingClientRect();
+        const radius = parseFloat(getComputedStyle(above).borderTopLeftRadius) || 0;
+        ctx.save();
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.roundRect(r.left, r.top, r.width, r.height, radius);
+        ctx.fill();
+        ctx.restore();
+        active = true; // keep redrawing while it animates
+      }
       return active;
     };
 
     const tick = () => {
-      if (mouse.inside) light();
+      if (mouse.inside && !off) light();
       if (render() || mouse.inside) {
         frame = requestAnimationFrame(tick);
       } else {
@@ -119,10 +136,14 @@ export default function Cursor() {
       start();
     };
     const over = (e: MouseEvent) => {
-      mouse.boost = (e.target as Element).closest("a, button") ? 1.4 : 1;
+      const target = e.target as Element;
+      mouse.boost = target.closest("a, button") ? 1.4 : 1;
+      above = target.closest("[data-cursor-above]");
+      off = !!target.closest("[data-cursor-off]");
     };
     const leave = () => {
       mouse.inside = false;
+      above = null;
     };
 
     resize();

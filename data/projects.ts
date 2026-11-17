@@ -1,6 +1,7 @@
+import { about } from "@/lib/site";
 import screenshots from "./screenshots.json";
 
-export type CategoryId = "ai" | "web" | "blockchain" | "android";
+export type CategoryId = "ai" | "web" | "blockchain" | "android" | "cyber";
 
 export type Project = {
   title: string;
@@ -15,23 +16,57 @@ export type Project = {
   image?: string;
 };
 
+/** Tech names from a "Skills & stack" group in lib/site.ts, so both lists stay in sync. */
+function skillsOf(group: string): string[] {
+  return about.skills.find((g) => g.group === group)?.items.map((t) => t.name) ?? [];
+}
+
+/** Category-specific tags followed by that "Skills & stack" group, without duplicates. */
+const withSkills = (tags: string[], group: string) => [...new Set([...tags, ...skillsOf(group)])];
+
 export const categories: {
   id: CategoryId;
   title: string;
   blurb: string;
+  /** "Skillset & tools" tags on the homepage. */
   tech: string[];
+  /** Filter buttons on the Projects page; must match tags in each project's `tech`. */
+  filters: string[];
 }[] = [
   {
     id: "ai",
     title: "AI",
     blurb: "LLM products, retrieval-augmented generation, chatbots, machine learning and n8n automation.",
-    tech: ["RAG", "AI Chatbot", "ML", "n8n"],
+    tech: withSkills(["RAG", "AI Chatbot", "ML", "n8n"], "AI"),
+    filters: ["RAG", "AI Chatbot", "ML", "n8n"],
   },
   {
     id: "web",
     title: "Web",
     blurb: "Fast, accessible web applications, platforms and CMS-driven sites built with modern frameworks.",
-    tech: ["React", "Vue", "Laravel", "CMS"],
+    tech: withSkills(["React", "Vue", "Laravel", "CMS"], "Web"),
+    filters: ["Laravel", "Next.js", "CMS"],
+  },
+  {
+    id: "blockchain",
+    title: "Blockchain",
+    blurb: "Web3 platforms, dApps and smart-contract powered products on Ethereum and Polygon.",
+    tech: skillsOf("Blockchain"),
+    filters: [],
+  },
+  {
+    id: "cyber",
+    title: "Cyber",
+    blurb: "Security testing, network analysis, secrets management and hardened authentication for apps and infrastructure.",
+    tech: skillsOf("Cybersecurity"),
+    filters: [],
+  },
+  {
+    id: "android",
+    title: "Android",
+    blurb: "Native and cross-platform mobile apps with Kotlin, Java, Flutter and React Native, backed by Firebase.",
+    tech: skillsOf("Android"),
+    filters: [],
   },
 ];
 
@@ -51,7 +86,7 @@ export const projects: Project[] = [
     description: "Enterprise AI search that retrieves across company apps to ground answers in internal knowledge.",
     category: "ai",
     viewState: true,
-    tech: [],
+    tech: ["RAG"],
   },
 
   // AI · AI Chatbot

@@ -8,11 +8,11 @@ type Props = {
   id: CategoryId;
   title: string;
   blurb: string;
-  tech: string[];
+  filters: string[];
   items: { project: Project; image: string }[];
 };
 
-export default function ProjectSection({ id, title, blurb, tech, items }: Props) {
+export default function ProjectSection({ id, title, blurb, filters, items }: Props) {
   const [filter, setFilter] = useState<string | null>(null);
   const shown = filter ? items.filter(({ project }) => project.tech.includes(filter)) : items;
 
@@ -25,9 +25,9 @@ export default function ProjectSection({ id, title, blurb, tech, items }: Props)
           </h2>
           <p className="mt-3 max-w-xl font-extralight text-muted">{blurb}</p>
         </div>
-        {tech.length > 0 && (
+        {filters.length > 0 && (
           <div className="flex flex-wrap gap-2" role="group" aria-label={`Filter ${title} projects`}>
-            {[null, ...tech].map((t) => (
+            {[null, ...filters].map((t) => (
               <button
                 key={t ?? "all"}
                 type="button"
