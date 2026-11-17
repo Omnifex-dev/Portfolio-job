@@ -1,75 +1,119 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { navLinks, site } from "@/lib/site";
+import { useEffect, useState } from "react";
+import { contacts, navLinks, site } from "@/lib/site";
 import { Close, Menu } from "./icons";
 
+const sectionIds = navLinks.map(({ href }) => href.slice(1));
+
+/** Tracks which section currently sits under the middle of the viewport. */
+function useActiveSection() {
+  const [active, setActive] = useState<string>(sectionIds[0]);
+
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      // A thin band across the middle of the screen decides the active section.
+      { rootMargin: "-45% 0px -54% 0px" },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  return active;
+}
+
 export default function Navbar() {
-  const pathname = usePathname();
+  const active = useActiveSection();
   const [open, setOpen] = useState(false);
 
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isActive = (href: string) => href.slice(1) === active;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <nav className="glass mx-auto flex max-w-6xl items-center justify-between rounded-full py-2 pl-5 pr-2" aria-label="Main">
-        <Link href="/" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-shallow to-coral font-display text-sm font-bold text-white shadow-lg shadow-cyan-900/40 transition-transform group-hover:rotate-12">
-            {site.name.charAt(0)}
-          </span>
-          <span className="font-display text-lg font-semibold tracking-tight text-white">{site.name}</span>
-        </Link>
+    <>
+      {/* Fade so content scrolls softly under the bar. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-[linear-gradient(0deg,transparent,var(--bg)_70%)]"
+      />
+      <header className="fixed left-1/2 top-0 z-50 w-[calc(100%-30px)] -translate-x-1/2 md:w-[94%]">
+        <nav className="relative flex items-center justify-between py-5 xl:py-9" aria-label="Main">
+          <a
+            href="#home"
+            className="text-[13px] font-bold tracking-[0.2px] sm:text-base xl:text-lg"
+            onClick={() => setOpen(false)}
+          >
+            {site.name.toUpperCase()}
+          </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                aria-current={isActive(href) ? "page" : undefined}
-                className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                  isActive(href)
-                    ? "bg-white/15 text-white shadow-inner shadow-white/10"
-                    : "text-cyan-50/80 hover:bg-white/8 hover:text-white"
-                }`}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          <a
+            href={contacts.telegram.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-[13px] font-medium tracking-[0.8px] lg:block xl:text-base"
+          >
+            {site.role}
+          </a>
 
-        <button
-          type="button"
-          className="grid size-10 place-items-center rounded-full text-white hover:bg-white/10 md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <Close className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </nav>
+          <ul className="hidden items-center gap-10 text-sm font-semibold tracking-[0.8px] md:flex xl:gap-20 xl:text-base">
+            {navLinks.map(({ href, label }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  aria-current={isActive(href) ? "location" : undefined}
+                  className="hover-link uppercase"
+                >
+                  <span className="hover-in">
+                    <span>{label}</span>
+                    <span>{label}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
 
-      {open && (
-        <ul id="mobile-menu" className="glass animate-rise-in mx-auto mt-2 flex max-w-6xl flex-col gap-1 rounded-3xl p-3 md:hidden">
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                onClick={() => setOpen(false)}
-                aria-current={isActive(href) ? "page" : undefined}
-                className={`block rounded-2xl px-4 py-3 font-medium ${
-                  isActive(href) ? "bg-white/15 text-white" : "text-cyan-50/85 hover:bg-white/10"
-                }`}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </header>
+          <button
+            type="button"
+            className="grid size-10 place-items-center rounded-full text-white hover:bg-white/10 md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <Close className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </nav>
+
+        {open && (
+          <ul
+            id="mobile-menu"
+            className="animate-rise-in flex flex-col border-t border-line bg-bg/95 py-2 backdrop-blur md:hidden"
+          >
+            {navLinks.map(({ href, label }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  aria-current={isActive(href) ? "location" : undefined}
+                  className={`block py-3 text-sm font-semibold uppercase tracking-[0.8px] ${
+                    isActive(href) ? "text-accent" : "text-ink"
+                  }`}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </header>
+    </>
   );
 }

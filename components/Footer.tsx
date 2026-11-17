@@ -1,3 +1,4 @@
+import CurrentYear from "./CurrentYear";
 import { contacts, site } from "@/lib/site";
 import { GitHub, Mail, Telegram } from "./icons";
 
@@ -9,12 +10,12 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 px-4 pb-6">
-      <div className="glass mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 rounded-3xl px-6 py-5 text-sm text-cyan-50/75 sm:flex-row">
-        <p>
-          © {site.name} · {site.role}
+    <footer className="relative z-10 border-t border-line">
+      <div className="mx-auto flex w-[calc(100%-30px)] flex-col items-center justify-between gap-4 py-8 text-sm md:w-[94%] sm:flex-row">
+        <p className="font-medium opacity-50">
+          © <CurrentYear /> {site.name} · {site.role}
         </p>
-        <ul className="flex items-center gap-2">
+        <ul className="flex items-center gap-6">
           {links.map(({ href, label, Icon }) => (
             <li key={label}>
               <a
@@ -22,9 +23,9 @@ export default function Footer() {
                 target={href.startsWith("mailto:") ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="grid size-9 place-items-center rounded-full text-cyan-50/80 transition hover:bg-white/10 hover:text-white"
+                className="block text-ink transition-colors"
               >
-                <Icon className="size-[18px]" />
+                <Icon className="size-5" />
               </a>
             </li>
           ))}

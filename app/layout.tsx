@@ -1,13 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Geist } from "next/font/google";
+import Cursor from "@/components/Cursor";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import OceanBackground from "@/components/ocean/OceanBackground";
+import ParallaxBackdrop from "@/components/ParallaxBackdrop";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const sora = Sora({ variable: "--font-sora", subsets: ["latin"] });
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -24,16 +24,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d72a6",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable} antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col font-sans">
-        <OceanBackground />
+        <ParallaxBackdrop />
+        <Cursor />
         <Navbar />
-        <main className="relative z-10 flex-1 px-4 pb-20 pt-32 sm:pt-36">{children}</main>
+        <main className="relative z-10 flex-1 pb-24 pt-32 sm:pt-40">{children}</main>
         <Footer />
       </body>
     </html>

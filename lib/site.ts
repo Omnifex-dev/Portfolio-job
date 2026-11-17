@@ -9,10 +9,10 @@ export const site = {
 };
 
 export const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About me" },
-  { href: "/projects", label: "Projects" },
-  { href: "/contact", label: "Contact me" },
+  { href: "#home", label: "Home" },
+  { href: "#about", label: "About me" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact me" },
 ] as const;
 
 export const contacts = {
